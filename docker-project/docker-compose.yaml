@@ -1,0 +1,55 @@
+services:
+  frontend:
+    build: ./frontend
+    image: frontend:latest
+    container_name: frontend-app
+    networks:
+      - webnet
+  backend:
+    build: ./backend
+    image: backend:latest
+    container_name: backend-api
+    networks:
+      - webnet
+  redis-serv:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+    networks:
+      - webnet
+
+  db:
+    image: postgres:17.4
+    container_name: postgres_db
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - webnet
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    networks:
+      - webnet
+
+  nginx-serv:
+    image: nginx:1.27.4
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+       - ./nginx-conf/default.conf:/etc/nginx/conf.d/default.conf 
+    networks:
+      - webnet 
+
+networks:
+  webnet:
+
+volumes:
+  database:
