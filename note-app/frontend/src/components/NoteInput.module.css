@@ -1,0 +1,25 @@
+.container{
+    width: 100%;
+}
+.form{
+    display: flex;
+    justify-content: center
+}
+.note-input{
+    width: 60%;
+    height: 50px;
+    margin-bottom: 15px;
+    margin-right: 5px;
+    padding-left: 5px;
+}
+
+.add-btn{
+    width: 10%;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 0.31rem;
+}
+
+.add-btn:hover{
+    cursor: pointer;
+}

@@ -1,0 +1,19 @@
+services:
+  frontend-service:
+    build: ./frontend
+    image: frontend
+    command: npm run dev
+    container_name: frontend
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend:/usr/src/app
+  backend-service:
+    build: ./backend
+    image: backend
+    command: nodemon ./backend/index.js 3000
+    container_name: backend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend:/usr/src/app
