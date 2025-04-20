@@ -8,6 +8,7 @@ services:
       - 5173:5173
     volumes:
       - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules        # preserve node_modules in container
   backend-service:
     build: ./backend
     image: backend
@@ -17,3 +18,4 @@ services:
       - 3000:3000
     volumes:
       - ./backend:/usr/src/app
+      - /usr/src/app/node_modules        # preserve node_modules in container
