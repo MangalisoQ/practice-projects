@@ -3,6 +3,7 @@ dotenv.config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const Note = require("./models/note")
 
 app.use(cors());
 app.use(express.json());
@@ -24,21 +25,44 @@ app.get("/", (req, res) => {
 });
 
 app.get("/notes", (req, res) => {
-  res.json(notes);
+  Note.find({}).then(notes=>{
+    res.json(notes)
+ 
+  })
 });
+
+const generateId = () => {
+  const maxId = notes.length > 0
+    ? Math.max(...notes.map(n => n.id))
+    : 0
+  return maxId + 1
+}
 
 app.post("/notes", (req, res) => {
   const body = req.body;
-  console.log(req.body);
-  if (!body.content) {
+  if (!body.content || !body.title) {
     return response.status(400).json({
-      error: "content missing",
+      error: "missing information",
     });
   }
-  const savedNote = { id: body.id, content: body.content };
-  notes.push(savedNote);
-  res.json(savedNote);
+  const note = new Note({
+    content:body.content,
+    title:body.title,
+})
+
+note.save().then(savedNote=>{
+res.json(savedNote)
+})
 });
+
+
+app.delete('/notes/:id', (req, res) => {
+  const id = Number(req.params.id)
+  notes = notes.filter(note => note.id !== id)
+
+  res.status(204).end()
+})
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
