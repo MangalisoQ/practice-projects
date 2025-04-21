@@ -4,8 +4,8 @@ services:
     image: frontend
     command: npm run dev
     container_name: frontend
-    ports:
-      - 5173:5173
+    # ports:
+    #   - 5173:5173             # disable access outside the container
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules        # preserve node_modules in container
@@ -16,8 +16,8 @@ services:
     image: backend
     command: nodemon ./backend/index.js 3000
     container_name: backend
-    ports:
-      - 3000:3000
+    # ports:
+    #   - 3000:3000
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules        # preserve node_modules in container
