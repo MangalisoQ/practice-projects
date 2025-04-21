@@ -1,6 +1,6 @@
 db.createUser(
         {
-            user: "docker",
+            user: "root",
             pwd: "1234",
             roles: [
                 {

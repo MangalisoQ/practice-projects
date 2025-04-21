@@ -6,7 +6,7 @@ export const NoteInput = ({addNote}) => {
 
   const handleAddNote=(e)=>{
     e.preventDefault()
-    addNote({ id: Date.now(), content: note });
+    addNote({ content: note });
     setNote("")
   }
 

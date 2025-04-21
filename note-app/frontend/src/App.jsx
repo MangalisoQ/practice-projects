@@ -30,7 +30,14 @@ function App() {
   }
 
   const deleteNote=(id)=>{
-    setNotes((prevState)=>prevState.filter((note)=>note.id != id))
+    console.log(id)
+    NoteService
+    .deleteNote(id)
+    .then((rNote)=>{
+      setNotes((prevState)=>prevState.filter((note)=>note.id != rNote.id))
+    })
+    .catch(err=>console.log("Delete Note error: ",err))
+   
   }
 
   console.log(notes)

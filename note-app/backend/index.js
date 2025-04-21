@@ -3,7 +3,7 @@ dotenv.config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const Note = require("./models/note")
+const Note = require("./models/note").default
 
 app.use(cors());
 app.use(express.json());
@@ -40,14 +40,14 @@ const generateId = () => {
 
 app.post("/notes", (req, res) => {
   const body = req.body;
-  if (!body.content || !body.title) {
+  console.log("notes body ", body)
+  if (!body.content) {
     return response.status(400).json({
       error: "missing information",
     });
   }
   const note = new Note({
     content:body.content,
-    title:body.title,
 })
 
 note.save().then(savedNote=>{
@@ -57,10 +57,16 @@ res.json(savedNote)
 
 
 app.delete('/notes/:id', (req, res) => {
-  const id = Number(req.params.id)
-  notes = notes.filter(note => note.id !== id)
+  const id = req.params.id
 
-  res.status(204).end()
+
+  //notes = notes.filter(note => note.id !== id)
+  console.log("del id ",id)
+  Note.findByIdAndDelete(id)
+  .then(savedNote=>{
+    res.json(savedNote)})
+
+  // res.status(204).end()
 })
 
 
