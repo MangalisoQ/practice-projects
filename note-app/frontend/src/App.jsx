@@ -11,7 +11,7 @@ function App() {
     NoteService
       .getNotes()
       .then((noteList)=>{
-        console.log(noteList)
+        //console.log(noteList)
         setNotes(noteList)
       })
       .catch((err)=>{
@@ -30,7 +30,7 @@ function App() {
   }
 
   const deleteNote=(id)=>{
-    console.log(id)
+    //console.log(id)
     NoteService
     .deleteNote(id)
     .then((rNote)=>{
