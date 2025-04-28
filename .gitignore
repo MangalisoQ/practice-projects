@@ -1,4 +1,4 @@
-localstack/volume/
+localstack/volume/*
 localstack/terraform/.terraform*
 localstack/terraform/terraform.tfstate.backup
 note-app/
