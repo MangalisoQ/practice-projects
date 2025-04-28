@@ -9,23 +9,20 @@ terraform {
 
 
 provider "aws" {
-  region = "af-south-1"
+  region = var.aws_region
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-08d70e59c07c61a3a"
-  instance_type = "t2.micro"
+  ami           = var.ami
+  instance_type = var.instance_type
 
   tags = {
-    Name = "ExampleAppServerInstance"
+    Name = var.instance_name
   }
 }
 
 resource "aws_s3_bucket" "my-bucket" {
-  bucket = "my-first-tf-bucket"
+  bucket = var.bucket_name
 
-  tags = {
-    Name        = "My Bucket"
-    Environment = "Dev"
-  }
+  tags = var.tags
 }
