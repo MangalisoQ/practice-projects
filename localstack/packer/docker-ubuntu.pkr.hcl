@@ -31,6 +31,7 @@ variable "ansible_connection" {
 
 source "docker" "ubuntu" {
   image       = var.docker_image
+  pull = false
   commit      = true
   run_command = ["-d", "-i", "-t", "--name", var.ansible_host, "{{.Image}}", "/bin/bash"]
 }

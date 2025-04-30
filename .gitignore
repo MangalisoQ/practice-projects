@@ -1,4 +1,6 @@
-localstack/volume/*
-localstack/terraform/.terraform*
+localstack/volume/
+localstack/terraform/.terraform/
 localstack/terraform/terraform.tfstate.backup
 note-app/
+.DS_Store
+localstack/packer/tmp/

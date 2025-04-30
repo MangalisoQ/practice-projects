@@ -4,5 +4,5 @@
   tasks:
     - name: install Apache
       apt:
-        name: httpd
+        name: apache2
 
