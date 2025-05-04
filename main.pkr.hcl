@@ -13,7 +13,7 @@ packer {
 }
 
 source "docker" "ubuntu" {
-  image = var.docker_ubuntu_image
+  image = var.docker_image
   commit = true
   pull = false # without this option, it runs Docker pull
 
