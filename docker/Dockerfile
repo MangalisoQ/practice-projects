@@ -6,7 +6,7 @@ USER appuser
 WORKDIR /home/appuser
 
 # Set PATH so pip --user executables are found
-ENV PATH="/home/mike/.local/bin:${PATH}"
+ENV PATH="/home/appuser/.local/bin:${PATH}"
 
 RUN  python3 -m pip install --user ansible
 

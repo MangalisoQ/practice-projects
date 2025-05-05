@@ -1,6 +1,6 @@
 variable "docker_image" {
   description = "Docker image type"
-  type = string
+  type        = string
 }
 
 variable "ansible_host" {
@@ -11,3 +11,6 @@ variable "ansible_connection" {
   type = string
 }
 
+variable "ansible_user" {
+  type = string
+}

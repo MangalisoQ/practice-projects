@@ -1,0 +1,7 @@
+- name: configure webserver
+  hosts: all
+  become: true
+  tasks: 
+    - name: install apache
+      apk:
+        name: apache2
