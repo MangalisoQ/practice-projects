@@ -4,4 +4,5 @@
   tasks: 
     - name: install apache
       apk:
-        name: apache2
+        name: nginx, curl
+

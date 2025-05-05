@@ -1,10 +1,12 @@
-FROM python:3.14.0a7-alpine3.21
+FROM ubuntu:24.10
 
-RUN adduser -D appuser && apk update && apk add --no-cache python3-dev gcc libc-dev libffi-dev
+RUN  apt update &&  apt install python3-dev gcc libc-dev libffi-dev
 
-USER appuser
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
 WORKDIR /home/appuser
 
+USER appuser
 # Set PATH so pip --user executables are found
 ENV PATH="/home/appuser/.local/bin:${PATH}"
 
