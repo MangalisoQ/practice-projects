@@ -2,7 +2,7 @@
   hosts: all
   become: true
   tasks: 
-    - name: install apache
-      apk:
+    - name: install nginx and curl
+      apt:
         name: nginx, curl
 

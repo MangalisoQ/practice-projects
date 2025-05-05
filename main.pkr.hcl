@@ -30,11 +30,11 @@ build {
   ]
 
   provisioner "ansible" {
-    groups = ["webservers"]
+#    groups = ["webservers"]
     playbook_file = "./ansible/webserver.yml"
     extra_arguments = [
       "--extra-vars",
-      "ansible_host=${var.ansible_host} ansible_connection=${var.ansible_connection} ansible_user=root ansible_python_interpreter=/usr/bin/python3 private_key_file=~/.ssh/ansible"
+      "ansible_host=${var.ansible_host} ansible_connection=${var.ansible_connection} ansible_user=root ansible_python_interpreter=/usr/bin/python3.12"
 
     ]
   }

@@ -1,16 +1,16 @@
-FROM ubuntu:24.10
+FROM ubuntu:focal
 
-RUN  apt update &&  apt install python3-dev gcc libc-dev libffi-dev
+RUN   apt update &&   apt install -y python3-dev python3-pip 
+# gcc libc-dev libffi-dev
 
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# RUN adduser --system  appuser 
 
-WORKDIR /home/appuser
+# WORKDIR /home/appuser
 
-USER appuser
+# USER appuser
 # Set PATH so pip --user executables are found
-ENV PATH="/home/appuser/.local/bin:${PATH}"
+# ENV PATH="/home/appuser/.local/bin:${PATH}"
 
-RUN  python3 -m pip install --user ansible
-
+RUN  python3 -m pip install  ansible
 
 
