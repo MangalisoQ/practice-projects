@@ -3,6 +3,19 @@
   become: true
   tasks: 
     - name: install nginx and curl
-      apt:
-        name: nginx, curl
+      ansible.builtin.apt:
+        pkg:
+          - nginx
+          - curl
+    - name: start nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+    - name: confirm if nginx is running
+      ansible.builtin.command:
+        cmd: curl localhost:80
+      register: curl_results
+    - name: return curl output
+      ansible.builtin.debug:
+        var: curl_results
 

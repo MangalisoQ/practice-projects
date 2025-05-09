@@ -12,36 +12,41 @@ packer {
   }
 }
 
-source "docker" "alpine" {
+source "docker" "ubuntu" {
   #image  = var.docker_image # references an image 
   commit = true
   pull   = false # without this option, it runs Docker pull
   run_command = ["-d","-i","-t","--name",var.ansible_host, "{{.Image}}", "/bin/sh"]
-  build {
+    build {
     path = "./docker/Dockerfile" # builds the image
   }
 
 }
 
 build {
-  name = "build_docker_alpine"
+  name = "build_docker_ubuntu"
   sources = [
-    "source.docker.alpine"
+    "source.docker.ubuntu"
   ]
-
+  
+  # provisioner "shell" {
+  #  script = "./install.sh"
+  #}
+ 
   provisioner "ansible" {
-#    groups = ["webservers"]
+    #   groups = ["webservers"]
     playbook_file = "./ansible/webserver.yml"
     extra_arguments = [
+      "-vvv",
       "--extra-vars",
-      "ansible_host=${var.ansible_host} ansible_connection=${var.ansible_connection} ansible_user=root ansible_python_interpreter=/usr/bin/python3.12"
+      "ansible_host=${var.ansible_host} ansible_connection=${var.ansible_connection} ansible_user=${var.ansible_user} ansible_python_interpreter=/usr/bin/python3"
 
     ]
   }
 
   post-processor "docker-tag" {
-    repository = "myrepo/ansible_python-alpine"
-    tags       = ["3.21.3"]
+    repository = "myrepo/ansible-python_ubuntu"
+    tags       = ["24.10"]
 
   }
 }
