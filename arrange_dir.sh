@@ -1,8 +1,13 @@
-#! /bin/bash
+#! /opt/homebrew/bin/bash
 set -e
 
-DIR_PATH="$1"
+quiet=false
+verbose=false
 SCRIPT_FILENAME="${0##*/}"
+
+# command line inputs
+args_array=( "$@" )
+
 
 DOCS_exts=( "pdf" "doc" "docx" "odt" "ppt" "pptx" "epub")
 PICS_exts=( "png" "jpg" "jpeg" "gif" "tiff" "svg" "webp" )
@@ -16,7 +21,23 @@ function invalid_input () {
   exit 1
 }
 
+# command line args 1. directory path 2. print unmoved file
+function command_args () {
+  if [[ -z "${args_array[0]}" ]] || [[ ! -d "${args_array[0]}" ]]; then
+        invalid_input "Invalid Path: ${args_array[0]}"
+  fi
 
+  for command_arg in "${args_array[@]:1}"; do
+
+     if [[ "$command_arg" == "--quiet" ]] || [[ "$command_arg" == "-q" ]]; then
+       quiet=true
+      fi
+    
+      if [[ "$command_arg" == "--verbose" ]] || [[ "$command_arg" == "-v" ]]; then
+        verbose=true
+      fi
+  done
+}
 
 # If directory doesn't exit create one
 function check_dir_exists () {
@@ -31,14 +52,19 @@ function check_dir_exists () {
 }
 
 
+
+
 function move_files_dir ()
 {
     extention=$1
+
+    moved_files=()
 
      for ext in ${DOCS_exts[@]}; do
 
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Documents"
+       moved_files+="$filename" 
        break
      fi
    done
@@ -47,6 +73,8 @@ function move_files_dir ()
 
     if [[ "$extention" == "$ext" ]]; then
       mv "$DIR_PATH/$filename" "$DIR_PATH/Pictures"
+      moved_files+="$filename" 
+
       break 
     fi
   done
@@ -55,6 +83,8 @@ function move_files_dir ()
 
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Audio"
+       moved_files+="$filename" 
+
        break 
      fi
    done
@@ -63,6 +93,8 @@ function move_files_dir ()
 
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Videos"
+       moved_files+="$filename" 
+
        break
      fi
    done
@@ -70,6 +102,8 @@ function move_files_dir ()
     for ext in ${COMPR_exts[@]}; do
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Compressed"
+       moved_files+="$filename" 
+
        break
      fi
    done
@@ -77,6 +111,8 @@ function move_files_dir ()
    for ext in ${TEXT_exts[@]}; do
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Text"
+       moved_files+="$filename" 
+
        break
      fi
    done  
@@ -100,5 +136,25 @@ function prepare_files () {
   return 0
 }
 
+function print_unmoved_files () {
+  for item in "${files[@]}"; do
+    found=false
+    for item2 in "${moved_files[@]}"; do
+      if [[ "$item1" == "$item" ]]; then
+        found=true
+        break 
+      fi
+    done
+    if [[ "$found" == "false" ]] && [[ ! -d "$item" ]]; then
+      echo "$item"
+    fi
+  done
+}
+
+
+command_args
+echo "$quiet"
+echo "$verbose"
 check_dir_exists
 prepare_files
+print_unmoved_files
