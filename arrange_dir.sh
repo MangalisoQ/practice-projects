@@ -7,6 +7,7 @@ SCRIPT_FILENAME="${0##*/}"
 
 # command line inputs
 args_array=( "$@" )
+DIR_PATH="${args_array[0]}"
 
 
 DOCS_exts=( "pdf" "doc" "docx" "odt" "ppt" "pptx" "epub")
@@ -22,7 +23,7 @@ function invalid_input () {
 }
 
 # command line args 1. directory path 2. print unmoved file
-function command_args () {
+function process_command_args () {
   if [[ -z "${args_array[0]}" ]] || [[ ! -d "${args_array[0]}" ]]; then
         invalid_input "Invalid Path: ${args_array[0]}"
   fi
@@ -65,6 +66,7 @@ function move_files_dir ()
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Documents"
        moved_files+="$filename" 
+       [[ "$verbose" ]] &&  echo "moved ${filename} to Documents"
        break
      fi
    done
@@ -74,7 +76,7 @@ function move_files_dir ()
     if [[ "$extention" == "$ext" ]]; then
       mv "$DIR_PATH/$filename" "$DIR_PATH/Pictures"
       moved_files+="$filename" 
-
+       [[ "$verbose" ]] &&  echo "moved ${filename} to Pictures"
       break 
     fi
   done
@@ -84,7 +86,7 @@ function move_files_dir ()
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Audio"
        moved_files+="$filename" 
-
+        [[ "$verbose" ]] &&  echo "moved ${filename} to Audio"
        break 
      fi
    done
@@ -94,7 +96,7 @@ function move_files_dir ()
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Videos"
        moved_files+="$filename" 
-
+        [[ "$verbose" ]] &&  echo "moved ${filename} to Videos"
        break
      fi
    done
@@ -103,7 +105,7 @@ function move_files_dir ()
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Compressed"
        moved_files+="$filename" 
-
+        [[ "$verbose" ]] &&  echo "moved ${filename} to Compressed"
        break
      fi
    done
@@ -112,7 +114,7 @@ function move_files_dir ()
      if [[ "$extention" == "$ext" ]]; then
        mv "$DIR_PATH/$filename" "$DIR_PATH/Text"
        moved_files+="$filename" 
-
+        [[ "$verbose" ]] &&  echo "moved ${filename} to Text"
        break
      fi
    done  
@@ -151,10 +153,13 @@ function print_unmoved_files () {
   done
 }
 
-
-command_args
-echo "$quiet"
-echo "$verbose"
+#############################
+# Script File Entrypoint
+##########################
+process_command_args
 check_dir_exists
 prepare_files
-print_unmoved_files
+
+if [[ "$quiet" == "false" ]]; then
+  print_unmoved_files
+fi
