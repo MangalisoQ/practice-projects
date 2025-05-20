@@ -1,6 +1,0 @@
-DOCS_EXTENSIONS= [".pdf", ".doc", ".docx" ,".odt", ".ppt", ".pptx", ".epub"]
-PICS_EXTENSIONS=[ ".png" ,".jpg", ".jpeg" ,".gif", ".tiff" ,".svg" ,".webp" ]
-AUDIO_EXTENSIONS=[ ".mp3", ".mp4a", ".wav", ".aac", ".flac", ".ogg", ".aiff" ]
-VIDS_EXTENSIONS= [ ".mp4" ,".mov" ,".avi" ,".wmv" ,".mkv" ,".flv" ,".webm" ]
-COMPR_EXTENSIONS=[ ".zip", ".tar", ".gz", ".bz2", ".rar", ".tgz" ]
-TEXT_EXTENSIONS=[".sh", ".txt" ,".py" ,".c" ,".cpp", ".java" ,".go" ,".css" ,".html"]
