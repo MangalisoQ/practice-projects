@@ -1,21 +1,21 @@
 resource "random_pet" "pet_name" {
   length = 1
 
-  count = 2
+  count = var.num_pets
 }
 
 resource "random_integer" "pet_age" {
   min = 1
   max = 100
 
-  count = 2
+  count = var.num_pets
 }
 
 resource "random_pet" "pet_characteristics" {
   length = 3
   separator = ", "
 
-  count = 2
+  count = var.num_pets
 }
 
  resource "local_file" "pet_file" {
@@ -29,7 +29,6 @@ resource "random_pet" "pet_characteristics" {
  }
 
  resource "local_file" "pets_summary" {
-   count = length(random_pet.pet_name)
    content = join("\n", [for i in range(length(random_pet.pet_name)): 
     "Pet Name: ${random_pet.pet_name[i].id}  Pet Age: ${random_integer.pet_age[i].id}  Pet Characteristics: ${random_pet.pet_characteristics[i].id}"])
    filename = "./summary.txt"
