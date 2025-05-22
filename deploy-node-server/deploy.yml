@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: Update repo cache
+      ansible.builtin.apt:
+        update_cache: true
+      changed_when: false
+
+- hosts: docker_servers
+  become: true
+  vars_files:
+    - ./project-vars.yml
+  roles:
+    - docker_servers

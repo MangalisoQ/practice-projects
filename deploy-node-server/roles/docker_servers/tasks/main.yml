@@ -1,0 +1,59 @@
+- name: Download Docker Convenience script
+  ansible.builtin.get_url:
+    url: https://get.docker.com
+    dest: /tmp/install-docker.sh
+    mode: '0711'
+
+- name: Run the script
+  ansible.builtin.command:
+    chdir: /tmp/
+    cmd: sh install-docker.sh
+
+- name: Make sure Docker config directory exists
+  ansible.builtin.file:
+    path: /usr/local/lib/docker/cli-plugins
+    state: directory
+    mode: '0755'
+
+- name: Download Docker Compose
+  ansible.builtin.get_url:
+    url: https://github.com/docker/compose/releases/download/v2.35.0/docker-compose-linux-aarch64
+    dest: /usr/local/lib/docker/cli-plugins/docker-compose
+    mode: '0711'
+
+- name: Install ACL tools
+  ansible.builtin.apt:
+    name:
+      - acl
+    state: latest
+
+- name: Create new linux user with restricted permissions 
+  ansible.builtin.user:
+    name: "{{docker_user}}"
+    groups: adm, docker
+    append: true
+
+- name: Ensure App directory exists
+  ansible.builtin.file:
+    path: /home/{{docker_user}}/app
+    state: directory
+    mode: '0755'
+    owner: "{{docker_user}}"
+    group: "{{docker_user}}"             
+
+- name: Clone project repo
+  become_user: "{{docker_user}}"
+  ansible.builtin.git:
+    repo: 'https://github.com/MangalisoQ/node-server.git'
+    dest: /home/{{docker_user}}/app
+
+- name: Ensure Docker is running
+  become_user: "{{docker_user}}"
+  ansible.builtin.systemd_service:
+    name: docker
+    state: started
+
+- name: Run application using Docker Compose
+  become_user: "{{docker_user}}"
+  community.docker.docker_compose_v2:
+    project_src: /home/{{docker_user}}/app
