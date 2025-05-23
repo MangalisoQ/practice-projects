@@ -4,4 +4,4 @@
 
 - Merge all the branches into the main branch
 - Add Readme file for each project
-- Restructure terraform exercises projects
+- Restructure terraform exercise projects
