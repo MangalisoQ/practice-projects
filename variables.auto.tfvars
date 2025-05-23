@@ -1,0 +1,7 @@
+github_zen_api     = "https://api.github.com/zen"
+icanhazdadjoke_api = "https://icanhazdadjoke.com/"
+ipify_api          = "https://api.ipify.org"
+zen_file = "zen.txt"
+icanhazdadjoke_file = "icanhazdadjoke_file.txt"
+ipify_file = "ipify.txt"
+summary_file = "summary.txt"
