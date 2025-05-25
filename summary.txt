@@ -1,0 +1,3 @@
+        API: https://api.github.com/zen  Output: Speak like a human. Status Code: 200,
+        API: https://api.ipify.org  Output: 41.147.1.99 Status Code: 200,
+        API: https://icanhazdadjoke.com/  Output: They laughed when I said I wanted to be a comedian – they’re not laughing now. Status Code: 200,
