@@ -1,0 +1,17 @@
+# =========================================
+# Stage 1: Develop the React.js Application
+# =========================================
+
+FROM node:24-alpine3.20 
+
+WORKDIR /usr/home/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm","run","dev"]
