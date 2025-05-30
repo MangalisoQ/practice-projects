@@ -1,0 +1,23 @@
+pipeline{
+
+    agent any
+    
+    stages{
+        stage("Testings"){
+            steps{
+                echo "========CHECK DOCKER========"
+                sh 'pwd'
+                sh 'ls -l'
+                sh 'docker --version'
+
+                dir("/var/jenkins_home/workspace/react-app/jenkins-reactjs-app/"){
+                    sh 'ls -l'
+                    sh 'docker build -t react-app-test:latest -f Dockerfile.dev .'
+                    echo "========TESTING========"
+                    sh 'docker run react-app-test npm run test'
+                }
+            }
+        }
+    }
+}
+
