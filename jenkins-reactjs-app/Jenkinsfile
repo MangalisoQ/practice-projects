@@ -14,6 +14,7 @@ pipeline{
                 //  sh 'docker run  react-app-test npm run test'
                 sh 'node -v'
                 sh 'npm -v'
+                sh 'ls -l'
                 sh 'npm run test'
             }
         }
