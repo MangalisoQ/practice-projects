@@ -1,5 +1,5 @@
 pipeline{
-    
+
     agent any
     
     stages{
@@ -14,7 +14,6 @@ pipeline{
                     sh 'ls -l'
                     sh 'docker build -t react-app-test:latest -f Dockerfile.dev .'
                     echo "========TESTING========"
-                    sh 'docker images'
                     sh 'docker run react-app-test npm run test'
                 }
             }
