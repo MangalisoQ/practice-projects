@@ -1,12 +1,14 @@
 pipeline{
-    agent {
-            dockerfile {
-            filename 'Dockerfile.dev'
-            // label 'react-app-test'
-            dir 'jenkins-reactjs-app'
-        }
-    }
+    // agent {
+    //         dockerfile {
+    //         filename 'Dockerfile.dev'
+    //         // label 'react-app-test'
+    //         dir 'jenkins-reactjs-app'
+    //     }
+    // }
     
+    agent 'vm-agent'
+
     stages{
         stage("Testings"){
             steps{
