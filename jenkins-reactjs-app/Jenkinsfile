@@ -20,7 +20,7 @@ pipeline{
                     sh 'npm -v'
                     sh 'ls -l'
                     sh 'npm install'
-                    sh 'npm run test'
+                    sh 'npm run test '
                     sh 'ls -l'
                 }
             }

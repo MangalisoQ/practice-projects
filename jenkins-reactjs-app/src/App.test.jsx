@@ -8,6 +8,6 @@ describe('A truthy statement', () => {
 
 describe('A false statement', () => {
     it('should be equal to 10', () => {
-      expect(5+5).toEqual(2)
+      expect(5+5).toEqual(10)
     })
   })
