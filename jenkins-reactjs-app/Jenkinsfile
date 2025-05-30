@@ -19,7 +19,9 @@ pipeline{
                     sh 'node -v'
                     sh 'npm -v'
                     sh 'ls -l'
+                    sh 'npm install'
                     sh 'npm run test'
+                    sh 'ls -l'
                 }
             }
         }
