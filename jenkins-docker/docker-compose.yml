@@ -1,0 +1,30 @@
+services:
+  jenkins:
+    build: .
+    container_name: jenkins_docker
+    restart: on-failure
+    volumes:
+      - jenkins_data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins_net
+    ports:
+      - 8080:8080
+      - 50000:50000
+    
+  agent:
+    image:  alpine/socat
+    container_name: agent-container
+    ports:
+      - 127.0.0.1:2375:2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+    networks:
+      - jenkins_net
+
+volumes:
+  jenkins_data:
+
+networks:
+  jenkins_net:
