@@ -2,7 +2,7 @@ pipeline{
        agent {
                 dockerfile {
                 filename 'Dockerfile.dev'
-                label 'react-app-test'
+                //label 'react-app-test'
                 dir 'jenkins-reactjs-app'
                 }
             }
