@@ -8,16 +8,6 @@ pipeline{
             }
     
     stages{
-        stage("Docker Build"){
-         
-
-            // steps{
-                 echo "========BUILDING========"
-            //     sh 'docker build -t react-app-test:latest -f Dockerfile.dev .'
-            // }
-      
-        }
-
         stage("Testings"){
             steps{
                  echo "========Testing========"
