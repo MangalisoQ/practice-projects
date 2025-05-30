@@ -16,6 +16,7 @@ pipeline{
                 //  sh 'docker run  react-app-test npm run test'
                 sh 'pwd'
                 sh 'ls -l'
+                sh 'docker --version'
                 // dir("/var/jenkins_home/workspace/react-app/jenkins-reactjs-app/"){
 
                 
