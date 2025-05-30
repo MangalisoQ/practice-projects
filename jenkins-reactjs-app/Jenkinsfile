@@ -1,19 +1,20 @@
 pipeline{
-    agent any
+       agent {
+                dockerfile {
+                filename 'Dockerfile.dev'
+                label 'react-app-test'
+                dir 'jenkins-reactjs-app'
+                }
+            }
     
     stages{
         stage("Docker Build"){
-            agent {
-                dockerfile {
-                filename 'Dockerfile.dev'
-                label 'docker-agent'
-                }
-            }
+         
 
-            steps{
-                echo "========BUILDING========"
-                sh 'docker build -t react-app-test:latest -f Dockerfile.dev .'
-            }
+            // steps{
+                 echo "========BUILDING========"
+            //     sh 'docker build -t react-app-test:latest -f Dockerfile.dev .'
+            // }
       
         }
 
