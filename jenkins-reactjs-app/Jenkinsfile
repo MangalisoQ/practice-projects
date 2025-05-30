@@ -12,6 +12,8 @@ pipeline{
             steps{
                  echo "========Testing========"
                 //  sh 'docker run  react-app-test npm run test'
+                echo 'node -v'
+                echo 'npm -v'
                 sh 'npm run test'
             }
         }
